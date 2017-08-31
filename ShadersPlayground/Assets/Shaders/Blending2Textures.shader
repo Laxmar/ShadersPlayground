@@ -6,6 +6,7 @@
 		_SecondTex("Second Texture", 2D) = "white" {}
 		// Not used - go to line 53
 		_LerpValue("Transition float ", Range(0, 1)) = 0.5
+		_SinOffset("Offset of Sin(time)", Range(0, 2)) = 0
 	}
 	SubShader
 	{
@@ -37,7 +38,7 @@
 			float4 _MainTex_ST;
 
 			sampler2D _SecondTex;
-			float _LerpValue;
+			float _SinOffset;
 			
 			v2f vert (appdata v)
 			{
@@ -51,11 +52,11 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				// Uncomment and comment next line to use lerp value const in time
-				// fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_SecondTex, i.uv), _LerpValue;
+				//fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_SecondTex, i.uv), _LerpValue);
 
-				// change _SinTime.w to speed up animation more info:
+				// change _SinTime.x to slow down animation more info:
 				// https://docs.unity3d.com/455/Documentation/Manual/SL-BuiltinValues.html
-				fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_SecondTex, i.uv), abs( _SinTime.z));
+				fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_SecondTex, i.uv), _SinOffset + _SinTime.w);
 
 				return col;
 			}
