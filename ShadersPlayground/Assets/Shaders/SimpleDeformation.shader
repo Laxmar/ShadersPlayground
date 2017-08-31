@@ -40,6 +40,7 @@
 
 				float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				o.vertex.y = sin(worldPos.x + _Time.w)/4 + 1.5;
+				o.vertex.y += sin(worldPos.z + _Time.w)/4;
 
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				UNITY_TRANSFER_FOG(o,o.vertex);
@@ -50,8 +51,6 @@
 			{
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
 			}
 			ENDCG
