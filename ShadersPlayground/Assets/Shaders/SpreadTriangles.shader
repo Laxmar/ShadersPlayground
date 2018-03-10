@@ -32,6 +32,7 @@ Shader "Playground/SpreadTriangles"
 		float4 _MainTex_ST;
 		float _MaxDistance;
 
+
 		struct appdata
 		{
 			float4 vertex : POSITION;
